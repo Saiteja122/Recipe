@@ -1,0 +1,16 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<div>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div>Hello @User.Identity.Name!</div>
+        <div class="he" id="popular-head" ></div>
+    }
+    else
+    {
+        <h1>Placeholder</h1>
+
+    }
+</div>
