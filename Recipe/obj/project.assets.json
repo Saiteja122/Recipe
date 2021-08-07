@@ -7827,7 +7827,7 @@
       "outputPath": "/Users/mac2012/Projects/Recipe/Recipe/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/mac2012/.nuget/NuGet/NuGet.Config"
+        "/Users/mac2012/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
