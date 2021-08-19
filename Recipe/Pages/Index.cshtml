@@ -1,48 +1,83 @@
 @page
 @model Recipe.Pages.IndexModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 
 @{ ViewData["Title"] = "Index"; }
 
 <h1>Index</h1>
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Recipes[0].Ingredeints)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Recipes[0].Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Recipes[0].PhotoUrl)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Recipes)
-        {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Ingredeints)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Title)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.PhotoUrl)
-    </td>
-    <td>
-        <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-        <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-        <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-    </td>
-</tr>}
-    </tbody>
-</table>
+@if (SignInManager.IsSignedIn(User))
+{
 <input type="text" id="textSearch" />
-<button id="test">test</button>
+                <button id="test">Search</button>
+        <p>
+            <a asp-page="Create">Create New</a>
+        </p>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th id="ingri">
+                                        @Html.DisplayNameFor(model => model.Recipes[0].Ingredeints)
+                                    </th>
+                                    <th id="title">
+                                        @Html.DisplayNameFor(model => model.Recipes[0].Title)
+                                    </th>
+                                    <th id="photourl">
+                                        @Html.DisplayNameFor(model => model.Recipes[0].PhotoUrl)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Recipes)
+                                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ingredeints)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhotoUrl)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                        <button id="btn">Favouritese</button>
+                        
+                    </td>
+                    </tr>
+}
+                    </tbody>
+                    </table>
+}
+                    else
+                    {
+
+                <input type="text" id="textSearch" />
+                <button id="test">test</button>
+}
+<script>
+
+    let btn = document.getElementById("btn")
+    ntn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const url = 'https://localhost:44318/12201/app/Fav?user=' + '@User.Identity.Name' + '&ingridients=' + document.getElementById("ingri").value + '&title=' + document.getElementById("title").value + '&url=' + document.getElementById("title").value
+        console.log(url)
+        fetch(url,{
+        mode:'no-cors',
+        })
+        .then((response) => response.text())
+        .catch((error) => {
+
+        })
+        .then((body) => {
+            console.log(body)
+        });
+        getData()
+    })
+</script>
