@@ -10,7 +10,7 @@ using RecipeApi.Models;
 
 namespace RecipeApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class Fav : ControllerBase
     {
@@ -25,6 +25,7 @@ namespace RecipeApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Favorites>>> GetFavorites()
         {
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
             return await _context.Favorites.ToListAsync();
         }
 
@@ -32,6 +33,7 @@ namespace RecipeApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Favorites>> GetFavorites(int id)
         {
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
             var favorites = await _context.Favorites.FindAsync(id);
 
             if (favorites == null)
@@ -83,6 +85,25 @@ namespace RecipeApi.Controllers
 
             return CreatedAtAction("GetFavorites", new { id = favorites.ID }, favorites);
         }
+
+        [HttpGet]
+        public async Task<ActionResult<Favorites>> AddFavDB(String user,String ingridients, String title, String url)
+        {
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            var fav = new Favorites();
+            fav.Ingredeints = ingridients;
+            fav.PhotoUrl = url;
+            fav.Title = title;
+            fav.User = user;
+
+            _context.Favorites.Add(fav);
+            await _context.SaveChangesAsync();
+
+
+            return CreatedAtAction("GetFavorites", new { id = 0 }, fav);
+
+        }
+
 
         // DELETE: api/Fav/5
         [HttpDelete("{id}")]

@@ -186,4 +186,3 @@
 /Users/mac2012/Projects/Recipe/Recipe/obj/Debug/net5.0/ref/Recipe.dll
 /Users/mac2012/Projects/Recipe/Recipe/obj/Debug/net5.0/Recipe.pdb
 /Users/mac2012/Projects/Recipe/Recipe/obj/Debug/net5.0/Recipe.genruntimeconfig.cache
-/Users/mac2012/Projects/Recipe/Recipe/obj/Debug/net5.0/Recipe.csproj.AssemblyReference.cache

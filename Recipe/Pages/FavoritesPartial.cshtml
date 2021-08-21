@@ -7,10 +7,43 @@
     {
         <div>Hello @User.Identity.Name!</div>
         <div class="popular-user"></div>
+        <h1 id="result">Placeholder</h1>
+        <script>
+
+
+    async function getData() {
+        const result = await fetch("https://localhost:12201/api/fav/getfavorites").then((response) => response.text())
+
+        const textArea = document.getElementById("result");
+        const arrayofFavorites = JSON.parse(result);
+        console.log(arrayofFavorites)
+        console.log()
+        for (let i = 0; i < arrayofFavorites.length; i++)
+            if (arrayofFavorites[i]["user"] == '@User.Identity.Name') {
+                const ingri = document.createElement("div");
+                ingri.innerHTML = arrayofFavorites[i]["ingredeints"];
+                const title = document.createElement("div");
+                title.innerHTML = arrayofFavorites[i]["title"];
+                const photo = document.createElement("img");
+                photo.src = arrayofFavorites[i]["photoUrl"];
+                textArea.appendChild(ingri);
+                textArea.appendChild(title);
+                textArea.appendChild(photo);
+                console.log(textArea)
+            }
+
+    }
+    getData();
+
+
+
+
+        </script>
     }
     else
     {
-        <h1>Placeholder</h1>
+
+
 
     }
 </div>
